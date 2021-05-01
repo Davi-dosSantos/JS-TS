@@ -5,5 +5,6 @@ const estilosBody = getComputedStyle(document.body);
 const backgroundColorBody = estilosBody.backgroundColor;
 
 for (let p of ps) {
-    console.log(p);
+    p.style.backgroundColor = backgroundColorBody;
+    p.style.color = '#FFFFFF';
 }
