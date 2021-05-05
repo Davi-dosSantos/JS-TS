@@ -16,42 +16,44 @@ inputNewTask.addEventListener('keypress', function (event) {
     }
 })
 
+function inputClear() {
+    inputNewTask.value = '';
+    inputNewTask.focus();
+}
+
 function createButtonDelete(li) {
     li.innerHTML += ' ';
     const buttonDelete = document.createElement('button');
-    buttonDelete.innerText = 'Delete';
+    buttonDelete.innerText = ' Delete';
     buttonDelete.setAttribute('class', 'delete');
     buttonDelete.setAttribute('title', 'delete this task');
     li.appendChild(buttonDelete);
 }
 
-function inputClear() {
-    inputNewTask.value = '';
-    inputNewTask.focus();
-}
 
 function createTask(textInput) {
     const li = createLi();
     li.innerText = textInput;
     tasks.appendChild(li);
     inputClear();
-    createButtonDelete(li)
-    taskSave()
+    createButtonDelete(li);
+    taskSave();
 }
 
 
 buttonAddTask.addEventListener('click', function () {
     if (!inputNewTask.value) return;
     createTask(inputNewTask.value)
-})
-buttonAddTask.addEventListener('click', function (event) {
-    const element = event.target;
+});
 
-    if (element.classList.contains('delete')) {
-        element.parentElement.remove();
+document.addEventListener('click', function (event) {
+    const elements = event.target;
+
+    if (elements.classList.contains('delete')) {
+        elements.parentElement.remove();
         taskSave();
     }
-})
+});
 
 function taskSave() {
     const liTask = tasks.querySelectorAll('li')
@@ -60,12 +62,20 @@ function taskSave() {
     for (let task of liTask) {
         let taskText = task.innerText;
         taskText = taskText.replace('Delete', '').trim();
-        console.log(taskText);
         taskList.push(taskText);
-
     }
 
     const tasksJASON = JSON.stringify(taskList);
     localStorage.setItem('tasks', tasksJASON);
 
 }
+
+function addTasksSaved() {
+    const tasks = localStorage.getItem('tasks');
+    const taskList = JSON.parse(tasks)
+
+    for (let task of taskList) {
+        createTask(task);
+    }
+}
+addTasksSaved()
