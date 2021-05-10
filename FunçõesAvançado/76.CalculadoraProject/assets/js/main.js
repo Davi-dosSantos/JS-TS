@@ -3,13 +3,44 @@ function createCalculator() {
         display: document.querySelector('.display'),
         btnClear: document.querySelector('.btn-clear'),
 
+        start() {
+            this.clickButtons();
+            this.pressEnter();
+        },
+
+        pressEnter() {
+            this.display.addEventListener('keyup', e => {
+                if (e.keyCode === 13) {
+                    this.executeCalc();
+                }
+            })
+        },
+
         clearDisplay() {
             this.display.value = '';
         },
 
-        inicia() {
-            this.clickButtons();
+        deleteOne() {
+            this.display.value = this.display.slice(0, -1)
         },
+
+        executeCalc() {
+            let calc = this.display.value;
+            try {   //A função eval é perigosa trás varias frágilidades ao código, por executar o que recebe como js
+                calc = eval(calc);
+                if (!calc) {
+                    alert('invalid calculation');
+                    return;
+                }
+
+                this.display.value = String(calc);
+            } catch (e) {
+                alert('invalid calculation');
+                return
+            }
+
+        },
+
 
         clickButtons() {
             document.addEventListener('click', (event) => {
@@ -21,6 +52,12 @@ function createCalculator() {
                 if (element.classList.contains('btn-clear')) {
                     this.clearDisplay();
                 }
+                if (element.classList.contains('btn-del')) {
+                    this.deleteOne();
+                }
+                if (element.classList.contains('btn-eq')) {
+                    this.executeCalc();
+                }
             });
         },
 
@@ -31,5 +68,5 @@ function createCalculator() {
     };
 }
 
-createCalculator()
-createCalculator.inicia
+const calculator = createCalculator();
+calculator.start()
