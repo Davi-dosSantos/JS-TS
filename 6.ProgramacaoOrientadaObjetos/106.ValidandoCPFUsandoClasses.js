@@ -8,10 +8,9 @@ class ValidaCPF {
         });
     }
 
-ValidaCPF.prototype.valida = function () {
-    if (typeof this.cpfLimpo === 'undefined') return false;
-    if (this.cpfLimpo.length !== 11) return false;
-    if (this.isSequencia()) return false;
+    éSequência() {
+        return this.cpfLimpo.charAt(0).repeat(11) === this.cpfLimpo;
+    }
 
     const cpfParcial = this.cpfLimpo.slice(0, -2);
     const digito1 = this.criaDigito(cpfParcial);
