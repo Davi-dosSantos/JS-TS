@@ -16,9 +16,9 @@ class ValidaCPF {
     const digito1 = this.criaDigito(cpfParcial);
     const digito2 = this.criaDigito(cpfParcial + digito1);
 
-    const novoCpf = cpfParcial + digito1 + digito2;
-    return novoCpf === this.cpfLimpo;
-};
+    static geraDigito(cpfSemDigitos) {
+        let total = 0;
+        let reverso = cpfSemDigitos.length + 1;
 
 ValidaCPF.prototype.criaDigito = function (cpfParcial) {
     const cpfArray = Array.from(cpfParcial);
