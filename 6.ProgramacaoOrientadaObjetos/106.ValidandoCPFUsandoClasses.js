@@ -3,11 +3,10 @@ class ValidaCPF {
     constructor(cpfEnviado) {
         Object.defineProperty(this, 'cpfLimpo', {
         enumerable: true,
-        get: function () {
-            return cpfEnviado.replace(/\D+/g, '');
-        }
-    });
-}
+            configurable: false,
+            value: cpfEnviado.replace(/\D+/g, '')
+        });
+    }
 
 ValidaCPF.prototype.valida = function () {
     if (typeof this.cpfLimpo === 'undefined') return false;
