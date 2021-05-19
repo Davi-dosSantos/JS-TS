@@ -1,5 +1,7 @@
-function ValidaCPF(cpfEnviado) {
-    Object.defineProperty(this, 'cpfLimpo', {
+// 705.484.450-52 070.987.720-03
+class ValidaCPF {
+    constructor(cpfEnviado) {
+        Object.defineProperty(this, 'cpfLimpo', {
         enumerable: true,
         get: function () {
             return cpfEnviado.replace(/\D+/g, '');
@@ -39,7 +41,8 @@ ValidaCPF.prototype.isSequencia = function () {
     return sequencia === this.cpfLimpo;
 };
 
-const cpf = new ValidaCPF('070.987.720-03');
+let validacpf = new ValidaCPF('070.987.720-03');
+// validacpf = new ValidaCPF('999.999.999-99');
 
 if (cpf.valida()) {
     console.log('Cpf válido');
