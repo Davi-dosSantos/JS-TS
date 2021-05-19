@@ -31,8 +31,15 @@ ValidaCPF.prototype.criaDigito = function (cpfParcial) {
     }, 0);
 
     const digito = 11 - (total % 11);
-    return digito > 9 ? '0' : String(digito);
-};
+        return digito <= 9 ? String(digito) : '0';
+    }
+
+    valida() {
+        if (!this.cpfLimpo) return false;
+        if (typeof this.cpfLimpo !== 'string') return false;
+        if (this.cpfLimpo.length !== 11) return false;
+        if (this.éSequência()) return false;
+        this.geraNovoCpf();
 
 ValidaCPF.prototype.isSequencia = function () {
     const sequencia = this.cpfLimpo[0].repeat(this.cpfLimpo.length);
