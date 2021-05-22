@@ -10,6 +10,7 @@ function esperaAi(msg, tempo) {
 
         setTimeout(() => {
             resolve(msg);
+
         }, tempo);
     });
 }
